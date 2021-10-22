@@ -1,3 +1,4 @@
+const { response } = require('express');
 const express = require('express');
 const service = express();
 service.use(express.json());
@@ -14,7 +15,7 @@ service.options('*', (request, response) => {
     response.sendStatus(200);
 });
 
-const port = 5000;
+const port = 5001;
 service.listen(port, () => {
     console.log(`We're live on port ${port}!`);
 });
@@ -66,4 +67,23 @@ service.post('/orders/:custName', (request, response) => {
             order: orders[custName]
         }
     })
+});
+
+//delets an order
+service.delete('/orders/:custName', (request, response) => {
+    const custName = request.params.custName;
+
+    if (!orders.hasOwnProperty(custName)) {
+        response.status(400);
+        response.json({
+            ok: false,
+            results: `There is no order for ${custName}.`
+        });
+    } else {
+        delete orders[custName];
+        response.json({
+            ok: true,
+            results: `There is no order for ${custName}.`
+        });
+    }
 });
