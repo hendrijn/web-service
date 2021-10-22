@@ -83,7 +83,27 @@ service.delete('/orders/:custName', (request, response) => {
         delete orders[custName];
         response.json({
             ok: true,
-            results: `There is no order for ${custName}.`
         });
     }
+});
+
+//edit customer name for order
+service.patch('/orders/:custName', (request, response) => {
+    const custName = request.params.custName;
+
+    if (!orders.hasOwnProperty(custName)) {
+        response.status(400);
+        response.json({
+            ok: false,
+            results: `There is no order for ${custName}.`
+        });
+    } else {
+        orders[request.body.name] = orders[custName];
+        delete orders[custName];
+        response.json({
+            ok: true,
+            results: orders[request.body.name]
+        });
+    }
+
 });
