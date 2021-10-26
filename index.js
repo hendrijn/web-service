@@ -157,8 +157,7 @@ service.patch('/orders/:oldName', (request, response) => {
             });
         } else {
             response.json({
-                ok: true,
-                results: orders[request.body.name]
+                ok: true
             });
         }
     });
