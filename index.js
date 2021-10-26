@@ -145,7 +145,7 @@ service.delete('/orders/:name', (request, response) => {
 service.patch('/orders/:oldName', (request, response) => {
     const parameters = [
         request.body.name,
-        request.params.name
+        request.params.oldName
     ];
     const updateQuery = 'UPDATE orders SET name = ? WHERE name = ?';
     connection.query(updateQuery, parameters, (error, result) => {
