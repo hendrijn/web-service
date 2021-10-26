@@ -39,8 +39,8 @@ function rowToObject(row) {
 }
 
 //*********** HTTP Methods ***********\\
-service.get('/orders', (request, response) => {
-
+//displays all the orders present on the database
+service.get('/', (request, response) => {
     const selectQuery = 'SELECT * FROM orders';
     connection.query(selectQuery, (error, rows) => {
         if (error) {
@@ -54,6 +54,27 @@ service.get('/orders', (request, response) => {
             response.json({
                 ok: true,
                 results: orders
+            });
+        }
+    });
+});
+
+//displays the order for a given name
+service.get('/orders/:name', (request, response) => {
+    const custName = request.params.name;
+    const selectQuery = 'SELECT * FROM orders WHERE name = custName';
+    connection.query(selectQuery, (error, rows) => {
+        if (error) {
+            response.status(500);
+            response.json({
+                ok: false,
+                results: error.message,
+            });
+        } else {
+            const orders = rows.map(rowToObject);
+            response.json({
+                ok: true,
+                results: orders[custName]
             });
         }
     });
