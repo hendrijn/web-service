@@ -125,7 +125,7 @@ service.post('/orders', (request, response) => {
 service.delete('/orders/:name', (request, response) => {
     const parameters = [request.params.name];
     const deleteQuery = 'DELETE FROM orders WHERE name = ?';
-    connection.query(deleteQuery, parameters, (error, rows) => {
+    connection.query(deleteQuery, parameters, (error, result) => {
         if (error) {
             response.status(500);
             response.json({
@@ -136,6 +136,29 @@ service.delete('/orders/:name', (request, response) => {
             response.json({
                 ok: true,
                 results: `${request.params.name}'s order is deleted.`
+            });
+        }
+    });
+});
+
+//edits the name for a given order
+service.patch('/orders/:oldName', (request, response) => {
+    const parameters = [
+        request.body.name,
+        request.params.name
+    ];
+    const updateQuery = 'UPDATE orders SET name = ? WEHRE name = ?';
+    connection.query(updateQuery, parameters, (error, result) => {
+        if (error) {
+            response.status(500);
+            response.json({
+                ok: false,
+                results: error.message,
+            });
+        } else {
+            response.json({
+                ok: true,
+                results: orders[request.body.name]
             });
         }
     });
