@@ -61,9 +61,9 @@ service.get('/', (request, response) => {
 
 //displays the order for a given name
 service.get('/orders/:name', (request, response) => {
-    const custName = request.params.name;
-    const selectQuery = 'SELECT * FROM orders WHERE name = custName';
-    connection.query(selectQuery, (error, rows) => {
+    const parameters = [request.params.name];
+    const selectQuery = 'SELECT * FROM orders WHERE name = ?';
+    connection.query(selectQuery, parameters, (error, rows) => {
         if (error) {
             response.status(500);
             response.json({
@@ -71,10 +71,10 @@ service.get('/orders/:name', (request, response) => {
                 results: error.message,
             });
         } else {
-            const orders = rows.map(rowToObject);
+            const order = rows.map(rowToObject);
             response.json({
                 ok: true,
-                results: orders[custName]
+                results: order
             });
         }
     });
