@@ -121,6 +121,26 @@ service.post('/orders', (request, response) => {
     }
 });
 
+//deletes the order for a given name
+service.delete('/orders/:name', (request, response) => {
+    const parameters = [request.params.name];
+    const selectQuery = 'DELETE * FROM orders WHERE name = ?';
+    connection.query(selectQuery, parameters, (error, rows) => {
+        if (error) {
+            response.status(500);
+            response.json({
+                ok: false,
+                results: error.message,
+            });
+        } else {
+            response.json({
+                ok: true,
+                results: `${request.params.name}'s order is deleted.`
+            });
+        }
+    });
+});
+
 //create the port to listen
 const port = 5001;
 service.listen(port, () => {
