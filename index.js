@@ -86,26 +86,39 @@ service.get('/orders/:name', (request, response) => {
 
 //adds an order to the database
 service.post('/orders', (request, response) => {
-    const parameters = [
-        request.body.name,
-        request.body.items,
-        request.body.total
-    ];
-    const insertQuery = 'INSERT INTO orders(name, items, total) VALUES (?, ?, ?)';
-    connection.query(insertQuery, parameters, (error, rows) => {
-        if (error) {
-            response.status(500);
-            response.json({
-                ok: false,
-                results: error.message,
-            });
-        } else {
-            response.json({
-                ok: true,
-                results: orders
-            });
-        }
-    });
+    if (request.body.hasOwnProperty('name') &&
+        request.body.hasOwnProperty('items') &&
+        request.body.hasOwnProperty('total')) {
+
+        const parameters = [
+            request.body.name,
+            request.body.items,
+            request.body.total
+        ];
+
+        const insertQuery = 'INSERT INTO orders(name, items, total) VALUES (?, ?, ?)';
+        connection.query(insertQuery, parameters, (error, result) => {
+            if (error) {
+                response.status(500);
+                response.json({
+                    ok: false,
+                    results: error.message,
+                });
+            } else {
+                response.json({
+                    ok: true,
+                    results: result.id,
+                });
+            }
+        });
+
+    } else {
+        response.status(400);
+        response.json({
+            ok: false,
+            results: 'Incomplete memory.',
+        });
+    }
 });
 
 //create the port to listen
