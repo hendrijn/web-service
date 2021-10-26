@@ -124,8 +124,8 @@ service.post('/orders', (request, response) => {
 //deletes the order for a given name
 service.delete('/orders/:name', (request, response) => {
     const parameters = [request.params.name];
-    const selectQuery = 'DELETE * FROM orders WHERE name = ?';
-    connection.query(selectQuery, parameters, (error, rows) => {
+    const deleteQuery = 'DELETE FROM orders WHERE name = ?';
+    connection.query(deleteQuery, parameters, (error, rows) => {
         if (error) {
             response.status(500);
             response.json({
