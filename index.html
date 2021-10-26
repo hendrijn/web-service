@@ -3,10 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        li {
+            margin: 15px 10px;
+        }
+
+        #curl {
+            background-color: lightblue;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        h5, p {
+            margin-left: 20px;
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Web Service Report</title>
 </head>
 <body>
-   <h1>Hello</h1> 
+
+<div id="curl">
+    <h1>For whoever reviews my site:</h1>
+    <h3>GET /</h3>
+    <h5>ex. curl https://project2.jacquelyn-hendricks.me:8443/</h5>
+    <p>Upon visiting <strong>https://project2.jacquelyn-hendricks.me:8443/</strong> all orders within the database should appear. I have left an entry in the database so you can see how everything is organized.</p>
+    
+    <h3>GET /orders/:name</h3>
+    <h5>ex. curl https://project2.jacquelyn-hendricks.me:8443/orders/kayla</h5>
+    <p>Gets an order from a specific person.</p> 
+
+    <h3>POST /orders</h3>
+    <h5>ex. curl --request POST --data '{"name": "Tony", "items": "Burger with Fries", "total": 6.99}' https://project2.jacquelyn-hendricks.me:8443/orders/</h5>
+    <p>Adds an order to the database. Required fields are the customer name, the items they wanted, and their total (as a double). </p> 
+
+    <h3>PATCH /orders/:oldName</h3>
+    <h5>ex. curl --request PATCH --data '{"name": "Peter"}' https://project2.jacquelyn-hendricks.me:8443/orders/tony</h5>
+    <p>Changes the customer's name for a given order. The name in the url is the current name for the order. The name in the JSON is the new name.</p>
+
+    <h3>DELETE /orders/:name</h3>
+    <h5>ex. curl --request DELETE https://project2.jacquelyn-hendricks.me:8443/orders/kayla</h5>
+    <p>Deletes an order from the database given the customer's name. </p> 
+    
+</div>
+
+    <ol>
+        <li>My service manages a restaurant ordering system, not a to-do list.</li>
+        <li>My service uses MySql to manage the database with one table to store all the orders.</li>
+        <li>My service uses Express to interact with the database.</li>
+        <li>My service is available at https://project2.jacquelyn-hendricks.me:8443/</li>
+        <li>The endpoint URL's all have appropriate parameters that relate to the orders database.</li>
+        <li>My service receives JSON data in the endpoints and sends JSON data as a response.</li>
+        <li>My service can add orders to the system, get all orders, get an order by name, update the name of an order, delete all orders, and delete an order by name.</li>
+        <li>I used ufw to block all ports but the one for SSH and the server. (80, 8443, 443 are allowed).</li>
+        <li>I used a Nginx server to allow encrypted access to the service.</li>
+        <li>My service supports cross-origin resource sharing by including middleware and the options wildcard endpoint.</li>
+        <li>My service uses pm2 to keep the service running even when I am logged out of the droplet.</li>
+        <li>My service is stored in the GitHub repository "web-service" and is shared with Dr. Johnson on Slack.</li>
+        <li>The create_project2.sql and schema.sql scripts are in the repository. The credentials.json file is not included in the repository.</li>
+        <li>My GitHub repository has a steady flow of commits.</li>
+        <li>The service sends the html page for this report when they visit https://project2.jacquelyn-hendricks.me/report.html</li>
+    </ol>
 </body>
 </html>

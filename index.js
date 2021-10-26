@@ -141,6 +141,25 @@ service.delete('/orders/:name', (request, response) => {
     });
 });
 
+//deletes all orders in the database
+service.delete('/orders', (request, response) => {
+    const deleteQuery = 'DELETE FROM orders';
+    connection.query(deleteQuery, (error, result) => {
+        if (error) {
+            response.status(500);
+            response.json({
+                ok: false,
+                results: error.message,
+            });
+        } else {
+            response.json({
+                ok: true,
+                results: `All orders deleted.`
+            });
+        }
+    });
+});
+
 //edits the name for a given order
 service.patch('/orders/:oldName', (request, response) => {
     const parameters = [
@@ -161,6 +180,10 @@ service.patch('/orders/:oldName', (request, response) => {
             });
         }
     });
+});
+
+service.get('/report.html', (request, response) => {
+    response.sendFile('/report.html', { root: __dirname })
 });
 
 //create the port to listen
