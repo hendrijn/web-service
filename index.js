@@ -107,7 +107,7 @@ service.post('/orders', (request, response) => {
             } else {
                 response.json({
                     ok: true,
-                    results: result,
+                    results: result.insertId,
                 });
             }
         });
