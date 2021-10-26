@@ -19,6 +19,10 @@ service.options('*', (request, response) => {
 });
 //end resource sharing
 
+//create middleware for unpacking JSON bodies
+service.use(express.json());
+//end middleware
+
 //create database connection
 const connection = mysql.createConnection(credentials);
 connection.connect(error => {
@@ -79,6 +83,31 @@ service.get('/orders/:name', (request, response) => {
         }
     });
 });
+
+//adds an order to the database
+service.post('/orders', (request, response) => {
+    const parameters = [
+        request.body.name,
+        request.body.items,
+        request.body.total
+    ];
+    const insertQuery = 'INSERT INTO orders(name, items, total) VALUES (?, ?, ?)';
+    connection.query(insertQuery, parameters, (error, rows) => {
+        if (error) {
+            response.status(500);
+            response.json({
+                ok: false,
+                results: error.message,
+            });
+        } else {
+            response.json({
+                ok: true,
+                results: orders
+            });
+        }
+    });
+});
+
 //create the port to listen
 const port = 5001;
 service.listen(port, () => {
