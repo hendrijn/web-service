@@ -147,7 +147,7 @@ service.patch('/orders/:oldName', (request, response) => {
         request.body.name,
         request.params.name
     ];
-    const updateQuery = 'UPDATE orders SET name = ? WEHRE name = ?';
+    const updateQuery = 'UPDATE orders SET name = ? WHERE name = ?';
     connection.query(updateQuery, parameters, (error, result) => {
         if (error) {
             response.status(500);
