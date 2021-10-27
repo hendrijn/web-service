@@ -32,11 +32,11 @@
     <p>Upon visiting <strong>https://project2.jacquelyn-hendricks.me:8443/</strong> all orders within the database should appear. I have left an entry in the database so you can see how everything is organized.</p>
     
     <h3>GET /orders/:name</h3>
-    <h5>ex. curl https://project2.jacquelyn-hendricks.me:8443/orders/kayla</h5>
+    <h5>ex. curl https://project2.jacquelyn-hendricks.me:8443/orders/jackie</h5>
     <p>Gets an order from a specific person.</p> 
 
     <h3>POST /orders</h3>
-    <h5>ex. curl --request POST --data '{"name": "Tony", "items": "Burger with Fries", "total": 6.99}' https://project2.jacquelyn-hendricks.me:8443/orders/</h5>
+    <h5>ex. curl --header 'Content-Type: application/json' --request POST --data '{"name": "Tony", "items": "Burger with Fries", "total": 6.99}' https://project2.jacquelyn-hendricks.me:8443/orders/</h5>
     <p>Adds an order to the database. Required fields are the customer name, the items they wanted, and their total (as a double). </p> 
 
     <h3>PATCH /orders/:oldName</h3>
