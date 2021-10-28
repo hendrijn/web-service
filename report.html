@@ -32,23 +32,23 @@
     
     <h3>GET /orders/:name</h3>
     <h5>ex. curl https://project2.jacquelyn-hendricks.me:8443/orders/jackie</h5>
-    <p>Gets an order from a specific person.</p> 
+    <p>Gets an order from a specific person. Should return just the order from one person as JSON.</p> 
 
     <h3>POST /orders</h3>
     <h5>ex. curl --header 'Content-Type: application/json' --request POST --data '{"name": "Tony", "items": "Burger with Fries", "total": 6.99}' https://project2.jacquelyn-hendricks.me:8443/orders/</h5>
-    <p>Adds an order to the database. Required fields are the customer name, the items they wanted, and their total (as a double). </p> 
+    <p>Adds an order to the database. Required fields are the customer name, the items they wanted, and their total (as a double). Returns the id of the new customer.</p> 
 
     <h3>PATCH /orders/:oldName</h3>
     <h5>ex. curl --header 'Content-Type: application/json' --request PATCH --data '{"name": "Peter"}' https://project2.jacquelyn-hendricks.me:8443/orders/tony</h5>
-    <p>Changes the customer's name for a given order. The name in the url is the current name for the order. The name in the JSON is the new name.</p>
+    <p>Changes the customer's name for a given order. The name in the url is the current name for the order. The name in the JSON is the new name. Returns ok:true if the name was successfully changed.</p>
 
     <h3>DELETE /orders/:name</h3>
     <h5>ex. curl --request DELETE https://project2.jacquelyn-hendricks.me:8443/orders/peter</h5>
-    <p>Deletes an order from the database given the customer's name. </p> 
+    <p>Deletes an order from the database given the customer's name. Should return JSON with "NAME's order is deleted." </p> 
     
     <h3>DELETE /orders</h3>
     <h5>ex. curl --request DELETE https://project2.jacquelyn-hendricks.me:8443/orders</h5>
-    <p>Deletes all orders in the database.</p>
+    <p>Deletes all orders in the database. Should return JSON with "All orders deleted."</p>
 </div>
 
     <ol>

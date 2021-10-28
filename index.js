@@ -182,6 +182,7 @@ service.patch('/orders/:oldName', (request, response) => {
     });
 });
 
+//returns the report.html file
 service.get('/report.html', (request, response) => {
     response.sendFile('/report.html', { root: __dirname })
 });
